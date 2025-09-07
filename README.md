@@ -1,6 +1,5 @@
 # BimanGrasp-Dataset
-This is the official repository for the BimanGrasp-Dataset release of our paper:
-
+This is the official repository for the open-source implementation of the BimanGrasp Algorithm for synthesizing bimanual grasps on 3D objects of our RA-L and ICRA 2025 paper:
 
 <p align="center">
   <h2 align="center">Bimanual Grasp Synthesis for Dexterous Robot Hands</h2>
@@ -12,7 +11,7 @@ This is the official repository for the BimanGrasp-Dataset release of our paper:
     <strong>Chenxi Xiao*</strong>
  </p>
  
-<h3 align="center">RA-L 24' | Transferred to ICRA 25'</h3>
+<h3 align="center">RA-L 24' | presented at ICRA 25'</h3>
 
 <p align="center">
     <a href="https://arxiv.org/abs/2411.15903">
