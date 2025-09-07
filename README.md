@@ -1,5 +1,5 @@
 # BimanGrasp-Dataset
-This is the official repository for the BimanGrasp-Dataset release of our Paper
+This is the official repository for the BimanGrasp-Dataset release of our paper
 
 
 <p align="center">
@@ -44,7 +44,7 @@ python main.py
 python visualization.py --object_code <object_name> --num <grasp_index>
 ```
 
-While BimanGrasp-Generation is able to work with any 3D object mesh, this repository contains a mini demo on 5 randomly sample objects. To prepare your own objects, you could follow the asset processing script and instructions designed by DexGraspNet: https://github.com/PKU-EPIC/DexGraspNet/tree/main/asset_process
+While BimanGrasp-Generation is able to work with any 3D object mesh, this repository contains a mini demo on 5 randomly sample objects. To prepare your own objects, you could follow the asset processing script and instructions by DexGraspNet: https://github.com/PKU-EPIC/DexGraspNet/tree/main/asset_process
 
 ## Demo Visualization
 
