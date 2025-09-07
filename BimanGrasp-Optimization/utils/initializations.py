@@ -222,7 +222,6 @@ def initialize_dual_hand(right_hand_model, object_model, args):
     hand_pose_right.requires_grad_()
 
     # Set parameters for right hand model
-    # Handle both old and new parameter names for backward compatibility
     n_contact = getattr(args, 'num_contacts', getattr(args, 'n_contact', 4))
     contact_indices = torch.randint(
         right_hand_model.n_contact_candidates, size=[total_batch_size, n_contact], device=device
