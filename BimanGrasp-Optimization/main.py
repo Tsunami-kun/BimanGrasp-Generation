@@ -2,7 +2,6 @@ import os
 import sys
 sys.path.append(os.path.realpath('.'))
 
-
 import cProfile
 try:
     import memory_profiler
@@ -27,7 +26,6 @@ from utils.common import robust_compute_rotation_matrix_from_ortho6d
 from torch.multiprocessing import set_start_method
 import plotly.graph_objects as go
 from utils.common import Logger
-
 from utils.config import ExperimentConfig, create_config_from_args
 from utils.bimanual_handler import (
     BimanualPair, hand_pose_to_dict, save_grasp_results, EnergyTerms
@@ -93,11 +91,9 @@ class GraspExperiment:
         left_hand_model, right_hand_model = initialize_dual_hand(
             right_hand_model, self.object_model, self.config.initialization
         )
-        
-        # Create bimanual pair
         self.bimanual_pair = BimanualPair(left_hand_model, right_hand_model, self.device)
         
-        # Save initial poses
+        # Save initial poses for optional debugging
         self.left_hand_pose_st = left_hand_model.hand_pose.detach()
         self.right_hand_pose_st = right_hand_model.hand_pose.detach()
         
@@ -188,8 +184,7 @@ class GraspExperiment:
                 energy_terms.penetration[accept] = new_energy_terms.penetration[accept]
                 energy_terms.self_penetration[accept] = new_energy_terms.self_penetration[accept]
                 energy_terms.joint_limits[accept] = new_energy_terms.joint_limits[accept]
-                if new_energy_terms.wrench_volume is not None:
-                    energy_terms.wrench_volume[accept] = new_energy_terms.wrench_volume[accept]
+                energy_terms.wrench_volume[accept] = new_energy_terms.wrench_volume[accept]
                 
                 # Log progress
                 self.logger.log(
@@ -304,6 +299,6 @@ if __name__ == '__main__':
     print(f"Langevin noise: {config.optimizer.langevin_noise_factor}")
     print("=" * 45)
     
-    # Run experiment using new modular system
+    # Run experiment
     experiment = GraspExperiment(config)
     final_energy_terms = experiment.run_full_experiment()
