@@ -531,11 +531,6 @@ def cross_product(u: torch.Tensor, v: torch.Tensor) -> torch.Tensor:
     out = torch.cat((i.view(batch, 1), j.view(batch, 1), k.view(batch, 1)), 1)
     return out
 
-
-# ============================================================================
-# Logging Utilities (from logger.py)
-# ============================================================================
-
 class Logger:
     """TensorBoard logger for optimization tracking."""
     
