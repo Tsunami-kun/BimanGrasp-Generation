@@ -76,11 +76,12 @@ We would like to express our gratitude to the authors of the following repositor
 If you find this code useful, please consider citing:
 
 ```bibtex
-@article{bimangrasp2024,
-  title={BimanGrasp: Differentiable Optimization for Two-Handed Grasping},
-  author={Your Name},
-  journal={arXiv preprint},
-  year={2024}
+@article{shao2024bimanual,
+  title={Bimanual grasp synthesis for dexterous robot hands},
+  author={Shao, Yanming and Xiao, Chenxi},
+  journal={IEEE Robotics and Automation Letters},
+  year={2024},
+  publisher={IEEE}
 }
 ```
 
