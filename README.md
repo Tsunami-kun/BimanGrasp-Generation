@@ -1,5 +1,5 @@
 # BimanGrasp-Dataset
-This is the official repository for the BimanGrasp-Dataset release of our paper
+This is the official repository for the BimanGrasp-Dataset release of our paper:
 
 
 <p align="center">
@@ -64,12 +64,18 @@ This demo visualizations on the 5 objects are tested on an A40 GPU without cherr
 
 - [ ] Release validation code for both simulation and real-world validation.
 
-
 ## Acknowledgments
 
 We would like to express our gratitude to the authors of the following repository, from which we referenced code:
 
 * [DexGraspNet](https://github.com/PKU-EPIC/DexGraspNet/tree/main)
+
+## Dataset Repo
+
+Our released BimanGrasp-Dataset is in this repo: [[BimanGrasp-Dataset](https://github.com/Tsunami-kun/BimanGrasp-Dataset)].
+
+## License
+The Project is under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (LICENSE.md).
 
 ## Citation
 
