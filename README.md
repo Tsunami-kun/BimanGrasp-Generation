@@ -23,15 +23,67 @@ This is the official repository for the open-source implementation of the BimanG
 
 BimanGrasp is a differentiable optimization framework for generating stable bimanual dexterous grasps on diverse objects. The system leverages force closure estimation and SDF computing to produce physics-plausible bimanual grasps. 
 
-## Quick Installation
+---
 
-### Setup
+## Installation
 
-This project requires Conda and a CUDA-enabled GPU. The installation script has been tested on a desktop with an NVIDIA RTX 4090 and a server with an NVIDIA A40.
+### Option 1: Automatic Installation (Recommended)
+
+The easiest way for installation is to run the shell script:
 
 ```bash
 bash install.sh
 ```
+
+This will create a conda env named **bimangrasp**, installing **PyTorch 2.1.0** with **CUDA 11.8** support, **PyTorch3D (v0.7.8)**, and third-party dependencies (**TorchSDF** and **pytorch\_kinematics**).
+
+### Option 2: Manual Installation
+
+You can install everything step by step.
+
+1. **Create and activate Conda environment**
+
+   ```bash
+   conda create -n bimangrasp python=3.8 -y
+   conda activate bimangrasp
+   ```
+
+2. **Install PyTorch (CUDA 11.8 support)**
+
+   ```bash
+   conda install pytorch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0 pytorch-cuda=11.8 -c pytorch -c nvidia
+   ```
+
+3. **Install PyTorch3D**
+
+   ```bash
+   pip install https://github.com/facebookresearch/pytorch3d/archive/refs/tags/V0.7.8.tar.gz
+   ```
+
+4. **Install other dependencies**
+
+   ```bash
+   conda install -c conda-forge transforms3d trimesh plotly rtree -y
+   pip install urdf_parser_py scipy networkx tensorboard six
+   ```
+
+5. **Build and install TorchSDF**
+
+   ```bash
+   cd thirdparty/TorchSDF
+   bash install.sh
+   cd ../..
+   ```
+
+6. **Install pytorch\_kinematics**
+
+   ```bash
+   cd thirdparty/pytorch_kinematics
+   pip install -e .
+   cd ../..
+   ```
+
+---
 
 ## Usage
 
