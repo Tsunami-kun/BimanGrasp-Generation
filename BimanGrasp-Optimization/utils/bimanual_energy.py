@@ -86,7 +86,7 @@ class GraspMatrixComputer:
             return energy_fc, energy_vew
             
         except (RuntimeError, torch.linalg.LinAlgError, ValueError):
-            # Robust fallback when SVD fails
+            # fallback when SVD fails
             frobenius_norm = torch.norm(G, dim=[1, 2])
             fallback_fc = 1.0 / (frobenius_norm + 0.01)
             fallback_vew = torch.ones(batch_size, device=self.device)
@@ -139,12 +139,12 @@ class ForceClosureComputer:
             torch.norm(all_contact_normals, dim=-1, keepdim=True) + 1e-8
         )
         
-        # Build grasp matrix using unified computer
+        # Build grasp matrix
         G = self.grasp_matrix_computer.build_grasp_matrix(
             all_contact_points, all_contact_normals, batch_size, n_total_contacts
         )
         
-        # Get only force closure energy (VEW computed separately if needed)
+        # Get only force closure energy 
         energy_fc, _ = self.grasp_matrix_computer.compute_fc_and_vew(G)
         return energy_fc
 
@@ -192,7 +192,7 @@ class PenetrationComputer:
         # Self-penetration within each hand
         left_spen, right_spen = bimanual_pair.apply_to_both(lambda h: h.self_penetration())
         
-        # Inter-hand penetration (simplified to avoid CUDA errors)
+        # Inter-hand penetration 
         surface_points_right = bimanual_pair.right.surface_point.detach().clone()
         inter_pen = bimanual_pair.left.cal_distance(surface_points_right)
         inter_pen = torch.clamp(inter_pen, min=0)
@@ -252,7 +252,7 @@ class WrenchVolumeComputer:
         Returns:
             Wrench volume energy tensor
         """
-        # Use unified computer to get VEW (ignoring FC)
+        # get VEW 
         _, energy_vew = self.grasp_matrix_computer.compute_fc_and_vew(G)
         return energy_vew
 
@@ -271,8 +271,6 @@ class BimanualEnergyComputer:
         self.penetration_computer = PenetrationComputer(device)
         self.contact_distance_computer = ContactDistanceComputer(device)
         self.wrench_volume_computer = WrenchVolumeComputer(device)
-        
-        # Shared grasp matrix computer for efficiency
         self.grasp_matrix_computer = GraspMatrixComputer(device)
     
     def compute_all_energies(self, bimanual_pair: BimanualPair, object_model, 
@@ -346,8 +344,6 @@ class BimanualEnergyComputer:
             wrench_volume=energy_vew
         )
 
-
-# Backward compatibility function
 def cal_energy(left_hand_model, right_hand_model, object_model, 
                w_dis=100.0, w_pen=125.0, w_spen=10.0, w_joints=1.0, w_vew=0.5, 
                verbose=False, device='cuda'):
@@ -358,7 +354,6 @@ def cal_energy(left_hand_model, right_hand_model, object_model,
                           w_dis, w_pen, w_spen, w_joints, w_vew, verbose, device)
 
 
-# Updated main function
 def calculate_energy(left_hand_model, right_hand_model, object_model, 
                w_dis=100.0, w_pen=100.0, w_spen=10.0, w_joints=1.0, w_vew=0.0, 
                verbose=False, device='cuda'):
