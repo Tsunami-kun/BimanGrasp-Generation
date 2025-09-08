@@ -11,7 +11,7 @@ This is the official repository for the open-source implementation of the BimanG
     <strong>Chenxi Xiao*</strong>
  </p>
  
-<h3 align="center">RA-L 24' | presented at ICRA 25'</h3>
+<h3 align="center">RA-L | presented at ICRA 25'</h3>
 
 <p align="center">
     <a href="https://arxiv.org/abs/2411.15903">
