@@ -141,6 +141,3 @@ If you find this code useful, please consider citing:
   publisher={IEEE}
 }
 ```
-
-## License
-The Project is under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (LICENSE.md).
