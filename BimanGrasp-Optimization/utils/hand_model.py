@@ -73,7 +73,7 @@ class HandModel:
                         link_mesh = tm.load_mesh(os.path.join(mesh_path, 'box.obj'), process=False)
                         link_mesh.vertices *= visual.geom_param.detach().cpu().numpy()
                     elif visual.geom_type == "capsule":
-                        link_mesh = tm.primitives.Capsule(radius=visual.geom_param[0], height=visual.geom_param[1] * 2).apply_translation((0, 0, -visual.geom_param[1]))
+                        link_mesh = tm.primitives.Capsule(radius=visual.geom_param[0], height=visual.geom_param[1] * 2)
                     elif visual.geom_type == "mesh":
                         link_mesh = tm.load_mesh(os.path.join(mesh_path, visual.geom_param[0].split(":")[1]+".obj"), process=False)
                         if visual.geom_param[1] is not None:
@@ -125,9 +125,19 @@ class HandModel:
             self.joints_lower = torch.stack(self.joints_lower).float().to(device)
             self.joints_upper = torch.stack(self.joints_upper).float().to(device)
         elif self.handedness == 'left_hand':
-            k = self.joints_lower
-            self.joints_lower = -torch.stack(self.joints_upper).float().to(device)
-            self.joints_upper = -torch.stack(k).float().to(device)        
+            # For left hand, reverse joint limits except for Y-axis thumb joints (THJ0, THJ1)
+            # which should not be reversed when mirroring from right to left hand
+            joints_lower_new = []
+            joints_upper_new = []
+            for i, name in enumerate(self.joints_names):
+                if name in ['robot0:THJ0', 'robot0:THJ1']:
+                    joints_lower_new.append(self.joints_lower[i])
+                    joints_upper_new.append(self.joints_upper[i])
+                else:
+                    joints_lower_new.append(-self.joints_upper[i])
+                    joints_upper_new.append(-self.joints_lower[i])
+            self.joints_lower = torch.stack(joints_lower_new).float().to(device)
+            self.joints_upper = torch.stack(joints_upper_new).float().to(device)
         else:
             raise Exception("You have to declare the handedness of your hand model")
         # sample surface points
